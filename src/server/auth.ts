@@ -3,7 +3,7 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import CognitoProvider from "next-auth/providers/cognito";
 
 import { env } from "~/env";
 
@@ -44,9 +44,10 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CognitoProvider({
+      clientId: process.env.COGNITO_CLIENT_ID as string,
+      clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
+      issuer: process.env.COGNITO_ISSUER,
     }),
     /**
      * ...add more providers here.
